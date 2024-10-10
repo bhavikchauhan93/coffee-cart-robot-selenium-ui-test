@@ -16,7 +16,3 @@ User Opens Coffee Cart Website
     When User Lands On The Menu Page
     Then User Should See Coffee Menu
     And Cart is Empty
-
-
-
-
