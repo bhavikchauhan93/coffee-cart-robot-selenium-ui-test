@@ -12,7 +12,13 @@ Test Teardown     End Web Test
 
 *** Test Cases ***
 User Opens Coffee Cart Website
-    Given User navigates To Coffee Cart Website
+    Given User Navigates To Coffee Cart Website
     When User Lands On The Menu Page
     Then User Should See Coffee Menu
-    And Cart is Empty
+    And Cart Is Empty
+
+User Can See Full Coffee Menu
+    Given User Navigates To Coffee Cart Website
+    When User Clicks Menu Option
+    Then User Lands On The Menu Page
+    And Full Coffee Menu Is Displayed 

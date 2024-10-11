@@ -4,7 +4,7 @@ Resource    PO/Cart.robot
 
 
 *** Keywords ***
-User navigates To Coffee Cart Website
+User Navigates To Coffee Cart Website
     MenuPage.Load
 User Lands On The Menu Page
     MenuPage.Verify Page Loaded
@@ -12,5 +12,11 @@ User Lands On The Menu Page
 User Should See Coffee Menu
     MenuPage.Verify First And Last Coffees Listed On Menu
 
-Cart is Empty
+Cart Is Empty
     Cart.Verify Cart Is Empty
+
+User Clicks Menu Option
+    MenuPage.Navigate To Menu
+    
+Full Coffee Menu Is Displayed
+    MenuPage.Verify All Coffees Ingredients And Price On Menu
