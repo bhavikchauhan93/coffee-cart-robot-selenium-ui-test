@@ -8,8 +8,8 @@ ${ESPRESSO_INGREDIENT}         //ul//li[1]//div[@data-test='Espresso']/div[@styl
 ${ESPRESSO_MACCHIATO}          //ul//li[2]//h4[text()='Espresso Macchiato ']
 ${ESPRESSO_MACCHIATO_PRICE}    //ul//li[2]//h4//small[text()='$12.00']
 ${ESPRESSO_MACCHIATO_CUP}      //ul//li[2]//div[@class='cup-body' and @data-test='Espresso_Macchiato']
-${ESP_MACCHIATO_INGR}          //ul//li[2]//div[@data-test='Espresso_Macchiato']/div[@style='height: 30%;' and text()='espresso']
-${ESP_MACCHIATO_INGR_MF}       //ul//li[2]//div[@data-test='Espresso_Macchiato']/div[@style='height: 15%;' and text()='milk foam']
+${ESPRESSO_MACCHIATO_INGR}          //ul//li[2]//div[@data-test='Espresso_Macchiato']/div[@style='height: 30%;' and text()='espresso']
+${ESPRESSO_MACCHIATO_INGR_MF}       //ul//li[2]//div[@data-test='Espresso_Macchiato']/div[@style='height: 15%;' and text()='milk foam']
 
 ${CAPPUCCINO}                  //ul//li[3]//h4[text()='Cappuccino ']
 ${CAPPUCCINO_PRICE}            //ul//li[3]//h4//small[text()='$19.00']
