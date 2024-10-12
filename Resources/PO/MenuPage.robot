@@ -110,3 +110,11 @@ Verify Cafe Breve
     Page Should Contain Element    ${CAFE_BREVE_INGR_SM}
     Page Should Contain Element    ${CAFE_BREVE_INGR_SC}
     Page Should Contain Element    ${CAFE_BREVE_INGR_MF}
+
+Add ${coffee} To Cart
+    Wait Until Page Contains Element    //div[@aria-label='${coffee}']
+    Click Element    //div[@aria-label='${coffee}']
+
+Verify ${coffee} Added To Cart From Menu Page With ${price}
+    Wait Until Page Contains Element    ${ONE_ITEM_IN_CART}
+    Page Should Contain Button    Total: $${price}.00
