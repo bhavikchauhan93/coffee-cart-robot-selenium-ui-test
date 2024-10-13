@@ -27,12 +27,16 @@ User Can See Full Coffee Menu
     Then User Lands On The Menu Page
     And Full Coffee Menu Is Displayed
 
-User Adds Coffee to Cart
+User Adds One or More Coffee to Cart
     [Tags]    add-to-cart    regression
+    [Documentation]    Can add one or more coffees to cart using same keywords.
+    ...    Simply change coffee names passed as arguments to get different results.
+    ...    Example:
+    ...    And User Adds Coffees To Cart    Espresso Macchiato    Americano
+    ...    Then Coffees are Added To Cart    Espresso Macchiato    Americano
     Given User Navigates To Coffee Cart Website
     When User Lands On The Menu Page
-    #Embedded argument used. Replace coffee names to reuse keyword.
-    And User Adds Mocha To Cart
-    Then Item Mocha Is Added To Cart
+    And User Adds Coffees To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
+    Then Coffees are Added To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
 
     
