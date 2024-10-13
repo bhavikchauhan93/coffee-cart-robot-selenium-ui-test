@@ -58,5 +58,3 @@ ${CAFE_BREVE_INGR}             //ul//li[9]//div[@data-test='Cafe_Breve']/div[@st
 ${CAFE_BREVE_INGR_SM}          //ul//li[9]//div[@data-test='Cafe_Breve']/div[@style='height: 30%;' and text()='steamed milk']
 ${CAFE_BREVE_INGR_SC}          //ul//li[9]//div[@data-test='Cafe_Breve']/div[@style='height: 30%;' and text()='steamed cream']
 ${CAFE_BREVE_INGR_MF}          //ul//li[9]//div[@data-test='Cafe_Breve']/div[@style='height: 15%;' and text()='milk foam']
-
-${ONE_ITEM_IN_CART}            //a[@aria-label='Cart page' and text()='cart (1)']
