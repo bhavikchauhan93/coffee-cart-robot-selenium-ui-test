@@ -42,6 +42,7 @@ Coffees are Added To Cart
         MenuPage.Verify ${coffee} Added To Cart From Menu Page With ${total_price} And ${count}
         Cart.Verify ${coffee} Added To Cart From Cart Page With ${total_price} And ${count}
     END
+
 Get ${coffee} Price
     ${coffee_list} =    Load JSON From File    Data/coffee.json
     FOR    ${element}    IN    @{coffee_list}

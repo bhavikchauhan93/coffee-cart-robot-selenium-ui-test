@@ -38,5 +38,3 @@ User Adds One or More Coffee to Cart
     When User Lands On The Menu Page
     And User Adds Coffees To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
     Then Coffees are Added To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
-
-    
