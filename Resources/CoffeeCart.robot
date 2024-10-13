@@ -2,7 +2,8 @@
 Resource    PO/MenuPage.robot
 Resource    PO/Cart.robot
 
-Library     JSONLibrary
+Library    JSONLibrary
+Library    Collections
 
 
 *** Keywords ***
@@ -24,23 +25,28 @@ Full Coffee Menu Is Displayed
     MenuPage.Verify All Coffees Ingredients And Price On Menu
 
 User Adds Coffees To Cart
-    [Arguments]    @{order_list}
-    Set Test Variable    ${count}    ${0}
-    Set Test Variable    ${total_price}    ${0}
-    FOR    ${coffee}    IN    @{order_list}
-        ${new_count}    Evaluate    ${count} + 1
-        Set Test Variable    ${count}    ${new_count}
+    [Arguments]    @{ORDER_LIST}
+    Set Test Variable    ${COUNT}    ${0}                    #To count number of items in cart
+    Set Test Variable    ${TOTAL_PRICE}    ${0}              #To calculate total price of items in cart
+    Set Test Variable    @{ORDER_LIST}                       #To temporarily save list of items in cart, and use it for verifying items added
+    FOR    ${coffee}    IN    @{ORDER_LIST}
+        ${new_count}    Evaluate    ${COUNT} + 1
+        Set Test Variable    ${COUNT}    ${new_count}        #Updating count of items in cart
         MenuPage.Add ${coffee} To Cart
         ${price}=    Get ${coffee} Price
-        ${new_total_price}    Evaluate    ${total_price} + ${price}
-        Set Test Variable    ${total_price}    ${new_total_price}
+        ${new_total_price}    Evaluate    ${TOTAL_PRICE} + ${price}
+        Set Test Variable    ${TOTAL_PRICE}    ${new_total_price}        #Updating total price of items in cart
     END
 
-Coffees are Added To Cart
-    [Arguments]    @{order_list}
-    FOR    ${coffee}    IN    @{order_list}
-        MenuPage.Verify ${coffee} Added To Cart From Menu Page With ${total_price} And ${count}
-        Cart.Verify ${coffee} Added To Cart From Cart Page With ${total_price} And ${count}
+Coffees Are Added To Cart
+    #Verify from Menu Page
+    FOR    ${coffee}    IN    @{ORDER_LIST}
+        MenuPage.Verify ${coffee} Added To Cart From Menu Page With ${TOTAL_PRICE} And ${COUNT}
+    END
+    #Verify from Cart Page
+    Navigate To Cart
+    FOR    ${coffee}    IN    @{ORDER_LIST}
+        Cart.Verify ${coffee} Added To Cart From Cart Page With ${TOTAL_PRICE} And ${COUNT}
     END
 
 Get ${coffee} Price
@@ -50,3 +56,38 @@ Get ${coffee} Price
         IF    '${check}' == 'True'    BREAK
     END
     RETURN    ${element}[price]
+
+User Removes Coffee From Cart
+    [Arguments]    @{REMOVAL_LIST}
+    Set Test Variable    @{REMOVAL_LIST}                            #To temporarily save list of items to be removed from cart, and use it for verifying items removed
+    Navigate To Menu
+    FOR    ${coffee}    IN    @{REMOVAL_LIST}
+        MenuPage.Remove ${coffee} From Cart With ${TOTAL_PRICE}
+        Remove Values From List    ${ORDER_LIST}    ${coffee}        #Removes coffee from original order list
+        ${new_count}    Evaluate    ${COUNT} - 1
+        Set Test Variable    ${COUNT}    ${new_count}               #Updating count of items in cart
+        ${price}=    Get ${coffee} Price
+        ${new_total_price}    Evaluate    ${TOTAL_PRICE} - ${price}
+        Set Test Variable    ${TOTAL_PRICE}    ${new_total_price}    #Updating total price of items in cart
+    END
+
+
+Coffees Are Removed From Cart
+    #Verify removed coffees from Menu Page
+    FOR    ${coffee}    IN    @{REMOVAL_LIST}
+        MenuPage.Verify ${coffee} Removed From Menu Page With Updated ${TOTAL_PRICE} And ${COUNT}
+    END
+    #Verify remaining coffees in cart from Menu Page
+    FOR    ${coffee}    IN    @{ORDER_LIST}
+        MenuPage.Verify ${coffee} That Remain In Cart With ${TOTAL_PRICE}
+    END
+
+    #Verify removed coffees from Cart Page
+    Navigate to Cart
+    FOR    ${coffee}    IN    @{REMOVAL_LIST}
+        Cart.Verify ${coffee} Removed From Cart Page With Updated ${TOTAL_PRICE} And ${COUNT}
+    END
+    #Verify remaining coffees in cart from Cart Page
+    FOR    ${coffee}    IN    @{ORDER_LIST}
+        Cart.Verify ${coffee} That Remain In Cart With ${TOTAL_PRICE}
+    END

@@ -123,12 +123,36 @@ Verify Cafe Breve
 Add ${coffee} To Cart
     Wait Until Page Contains Element    //div[@aria-label='${coffee}']
     Click Element    //div[@aria-label='${coffee}']
-    Log    adding ${coffee} to cart
+    Log    Adding ${coffee} to cart
 
 Verify ${coffee} Added To Cart From Menu Page With ${total_price} And ${count}
     Wait Until Page Contains Element    //a[@aria-label='Cart page' and text()='cart (${count})']
-    Wait Until Page Contains Element    //ul[@class='cart-preview']//li//span[normalize-space()='${coffee}']
-    Page Should Contain Button    Total: $${total_price}.00
-    Log    ${coffee} added to cart
-    Log    ${count} coffees added to cart
-    Log    Total price of all coffees is $${total_price}
+    Page Should Contain Button          Total: $${total_price}.00
+    Mouse Over                          //button[normalize-space()='Total: $${total_price}.00']
+    Wait Until Page Contains Element    //ul[@class='cart-preview show']//li//span[normalize-space()='${coffee}']
+    Log Many    ${coffee} added to cart
+    ...    ${count} coffees added to cart
+    ...    Total price of all coffees is $${total_price}
+
+Remove ${coffee} From Cart With ${total_price}
+    Mouse Over                          //a[normalize-space()='menu']        #To take cursor away from checkout button
+    Mouse Over                          //button[normalize-space()='Total: $${total_price}.00']    #To take cursor on checkout button
+    Wait Until Element Is Visible       //ul[@class='cart-preview show']//li//button[@aria-label='Remove one ${coffee}']
+    Click Button                        //ul[@class='cart-preview show']//li//button[@aria-label='Remove one ${coffee}']
+    Log    Removing ${Coffee} from cart
+
+Verify ${coffee} Removed From Menu Page With Updated ${total_price} And ${count}
+    Wait Until Page Contains Element    //a[@aria-label='Cart page' and text()='cart (${count})']
+    Page Should Not Contain Element     //ul[@class='cart-preview']//li//span[normalize-space()='${coffee}']
+    Page Should Not Contain Element     //ul[@class='cart-preview show']//li//span[normalize-space()='${coffee}']
+    Page Should Contain Element         //button[normalize-space()='Total: $${total_price}.00']
+    Log Many    ${coffee} removed from cart
+    ...    ${count} coffees remain in cart
+    ...    Total price of all coffees is $${total_price}
+
+
+Verify ${coffee} That Remain In Cart With ${total_price}
+    Mouse Over                          //a[normalize-space()='menu']        #To take cursor away from checkout button
+    Mouse Over                      //button[normalize-space()='Total: $${total_price}.00']        #To take cursor on checkout button
+    Page Should Contain Element     //ul[@class='cart-preview show']//li//span[normalize-space()='${coffee}']
+    Log    ${coffee} remains in cart
