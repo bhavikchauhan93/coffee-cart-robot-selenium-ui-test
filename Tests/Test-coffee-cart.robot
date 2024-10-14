@@ -37,6 +37,7 @@ User Adds One Or More Coffee To Cart
     When User Lands On The Menu Page
     And User Adds Coffees To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
     Then Coffees Are Added To Cart
+    
 User Removes Coffee From Cart
     [Tags]    remove-from-cart    regression
     #User adda coffees to cart
