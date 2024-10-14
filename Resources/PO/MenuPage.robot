@@ -129,7 +129,7 @@ Verify ${coffee} Added To Cart From Menu Page With ${total_price} And ${count}
     Wait Until Page Contains Element    //a[@aria-label='Cart page' and text()='cart (${count})']
     Page Should Contain Button          Total: $${total_price}.00
     Mouse Over                          //button[normalize-space()='Total: $${total_price}.00']
-    Wait Until Page Contains Element    //ul[@class='cart-preview show']//li//span[normalize-space()='${coffee}']
+    Page Should Contain Element         //ul[@class='cart-preview show']//li//span[normalize-space()='${coffee}']
     Log Many    ${coffee} added to cart
     ...    ${count} coffees added to cart
     ...    Total price of all coffees is $${total_price}
@@ -150,9 +150,34 @@ Verify ${coffee} Removed From Menu Page With Updated ${total_price} And ${count}
     ...    ${count} coffees remain in cart
     ...    Total price of all coffees is $${total_price}
 
-
 Verify ${coffee} That Remain In Cart With ${total_price}
-    Mouse Over                          //a[normalize-space()='menu']        #To take cursor away from checkout button
+    Mouse Over                      //a[normalize-space()='menu']        #To take cursor away from checkout button
     Mouse Over                      //button[normalize-space()='Total: $${total_price}.00']        #To take cursor on checkout button
     Page Should Contain Element     //ul[@class='cart-preview show']//li//span[normalize-space()='${coffee}']
     Log    ${coffee} remains in cart
+
+Show Promo Message
+    Wait Until Page Contains Element    ${PROMO_MESSAGE}
+    Page Should Contain Element         ${DISCOUNTED_MOCHA_CUP}
+    Page Should Contain Button          Yes, of course!
+    Page Should Contain Button          Nah, I'll skip.
+    Log    Promo message shown to customer
+
+Accept Dicounted Mocha
+    Click Button    Yes, of course!
+
+Navigate To Checkout And Adds Details With ${total_price}
+    Click Button                    Total: $${total_price}.00
+    Page Should Contain Element     ${PAYMENT_WINDOW}
+    Page Should Contain Element     ${PAYMENT_DETAILS_HEADER}
+    Page Should Contain Textfield   ${INPUT_NAME}
+    Input Text    ${INPUT_NAME}     John doe
+    Page Should Contain Textfield   ${INPUT_EMAIL}
+    Input Text    ${INPUT_EMAIL}    jd123@no-reply.com
+    Page Should Contain Checkbox    ${PROMOTION_CHECKBOX}
+    Click Element                   ${PROMOTION_CHECKBOX}
+
+Verify Order Is Placed
+    Click Button                        Submit
+    Wait Until Page Contains Element    ${ORDER_CONFIRMATION}
+    Page Should Contain Element         ${ORDER_CONFIRMATION}

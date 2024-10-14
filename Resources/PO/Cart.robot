@@ -19,7 +19,7 @@ Navigate to Cart
 Verify ${coffee} Added To Cart From Cart Page With ${total_price} And ${count}
     Navigate to Cart
     Wait Until Page Contains Element    //a[@aria-label='Cart page' and text()='cart (${count})']
-    Wait Until Page Contains Element    //ul//li[@class='list-item']/div[text()='${coffee}']
+    Page Should Contain Element         //ul//li[@class='list-item']/div[text()='${coffee}']
     Page Should Contain Button          Total: $${total_price}.00
     Log Many    ${coffee} added to cart
     ...    ${count} coffees added to cart
@@ -33,6 +33,6 @@ Verify ${coffee} Removed From Cart Page With Updated ${total_price} And ${count}
     ...    ${count} coffees remain in
     ...    Total price of all coffees is $${total_price}
 
-Verify ${coffee} That Remain In Cart With ${TOTAL_PRICE}
+Verify ${coffee} That Remain In Cart With ${total_price}
     Page Should Contain Element     //ul//li[@class='list-item']/div[text()='${coffee}']
     Log    ${coffee} remains in cart

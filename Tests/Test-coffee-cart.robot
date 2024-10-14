@@ -37,13 +37,30 @@ User Adds One Or More Coffee To Cart
     When User Lands On The Menu Page
     And User Adds Coffees To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
     Then Coffees Are Added To Cart
-
 User Removes Coffee From Cart
     [Tags]    remove-from-cart    regression
-    #User adda coffes to cart
+    #User adda coffees to cart
     Given User Navigates To Coffee Cart Website
     And User Lands On The Menu Page
     And User Adds Coffees To Cart    Mocha    Espresso    Espresso Con Panna    Flat White
     And Coffees Are Added To Cart
     When User Removes Coffee From Cart    Espresso Con Panna    Flat White
     Then Coffees Are Removed From Cart
+
+User Gets Discounted Coffee
+    [Tags]    discount    regression
+    [Documentation]    Add 3 coffees to get discount on 4th Coffee. Discount only available on extra cup of mocha. 
+    Given User Navigates To Coffee Cart Website
+    And User Lands On The Menu Page
+    And User Adds Coffees To Cart    Espresso Macchiato    Mocha    Cafe Latte
+    When User Gets Notification For Discount On Extra Cup Of Mocha
+    And User Adds Discounted Mocha To Cart
+    Then Dicounted Mocha Is Added To Cart
+
+User Checkout
+    [Tags]    checkout    regression
+    Given User Navigates To Coffee Cart Website
+    And User Lands On The Menu Page
+    And User Adds Coffees To Cart    Espresso Macchiato    Cafe Latte
+    When User Continues To Chekout And Adds Details
+    Then Order Is Placed
