@@ -4,6 +4,11 @@ Resource    PO/Cart.robot
 
 Library    JSONLibrary
 Library    Collections
+Library    RequestsLibrary
+
+
+*** Variables ***
+${LIST_OF_COFFEE_API}    https://coffee-cart.app/list.json
 
 
 *** Keywords ***
@@ -50,8 +55,10 @@ Coffees Are Added To Cart
     END
 
 Get ${coffee} Price
-    ${coffee_list} =    Load JSON From File    Data/coffee.json
-    FOR    ${element}    IN    @{coffee_list}
+    ${coffee_list} =    GET    ${LIST_OF_COFFEE_API}
+    Status Should Be    200    ${coffee_list}
+    #${coffee_list} =    Load JSON From File    Data/coffee.json
+    FOR    ${element}    IN    @{coffee_list.json()}
         ${check}=    Evaluate    '${element}[name]' == '${coffee}'
         IF    '${check}' == 'True'    BREAK
     END
