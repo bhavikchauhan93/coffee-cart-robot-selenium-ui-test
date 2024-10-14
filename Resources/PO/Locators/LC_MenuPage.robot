@@ -60,3 +60,12 @@ ${CAFE_BREVE_INGR_SC}          //ul//li[9]//div[@data-test='Cafe_Breve']/div[@st
 ${CAFE_BREVE_INGR_MF}          //ul//li[9]//div[@data-test='Cafe_Breve']/div[@style='height: 15%;' and text()='milk foam']
 
 ${ONE_ITEM_IN_CART}            //a[@aria-label='Cart page' and text()='cart (1)']
+${PROMO_MESSAGE}               //div[@class='promo']//span[contains(text(),"It's your lucky day! Get an extra cup of Mocha for")]
+${DISCOUNTED_MOCHA_CUP}        //div[@class='cup-body disabled-hover' and @data-test='(Discounted)_Mocha']
+
+${PAYMENT_WINDOW}              //div[@class='modal']
+${PAYMENT_DETAILS_HEADER}      //div[@class='modal']//h1[normalize-space()='Payment details']
+${PROMOTION_CHECKBOX}          //input[@id='promotion']
+${INPUT_NAME}                  //input[@id='name']
+${INPUT_EMAIL}                 //input[@id='email']
+${ORDER_CONFIRMATION}          //div[@class='snackbar success' and text()='Thanks for your purchase. Please check your email for payment.']

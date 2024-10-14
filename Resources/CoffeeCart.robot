@@ -71,7 +71,6 @@ User Removes Coffee From Cart
         Set Test Variable    ${TOTAL_PRICE}    ${new_total_price}    #Updating total price of items in cart
     END
 
-
 Coffees Are Removed From Cart
     #Verify removed coffees from Menu Page
     FOR    ${coffee}    IN    @{REMOVAL_LIST}
@@ -91,3 +90,25 @@ Coffees Are Removed From Cart
     FOR    ${coffee}    IN    @{ORDER_LIST}
         Cart.Verify ${coffee} That Remain In Cart With ${TOTAL_PRICE}
     END
+
+User Gets Notification For Discount On Extra Cup Of Mocha
+    Navigate To Menu
+    MenuPage.Show Promo Message
+
+User Adds Discounted Mocha To Cart
+    MenuPage.Accept Dicounted Mocha
+    ${new_count}    Evaluate    ${COUNT} + 1
+    Set Test Variable    ${COUNT}    ${new_count}                    #Updating count of items in cart
+    ${price}=    Get (Discounted) Mocha Price
+    ${new_total_price}    Evaluate    ${TOTAL_PRICE} + ${price}
+    Set Test Variable    ${TOTAL_PRICE}    ${new_total_price}        #Updating total price of items in cart
+
+Dicounted Mocha Is Added To Cart
+    MenuPage.Verify (Discounted) Mocha Added To Cart From Menu Page With ${TOTAL_PRICE} And ${COUNT}
+    Navigate to Cart
+    Cart.Verify (Discounted) Mocha Added To Cart From Cart Page With ${TOTAL_PRICE} And ${COUNT}
+
+User Continues To Chekout And Adds Details
+    MenuPage.Navigate To Checkout And Adds Details With ${TOTAL_PRICE}
+Order Is Placed
+    MenuPage.Verify Order Is Placed
